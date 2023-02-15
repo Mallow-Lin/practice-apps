@@ -16,8 +16,8 @@ let Save = (glossary) => {
       .then((result) => {
         if (!result) {
           const newWord = new Glossary ({
-            word: glossary.word,
-            definition: glossary.definition
+            word: glossary.word.toLowerCase(),
+            definition: glossary.definition.toLowerCase()
           })
           resolve(newWord.save());
         } else {

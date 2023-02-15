@@ -16,6 +16,22 @@ app.get('/fetch', (req, res) => {
     })
 });
 
+app.get('/Search', (req, res) => {
+  const word = req.query.term.toLowerCase();
+  mongooseDB.Glossary.findOne({word: word})
+    .then((result) => {
+      if (!result) {
+        res.sendStatus(404);
+      } else {
+        res.send(result);
+      }
+    })
+    .catch((err) => {
+      console.log('no result', err)
+    })
+})
+
+
 let port = 3000;
 app.listen(port, function() {
   console.log(`listening on port ${port}`);

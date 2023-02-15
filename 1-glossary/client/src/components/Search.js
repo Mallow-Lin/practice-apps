@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Search = () => {
+const Search = ({ search }) => {
+
+  const [term, setTerm] = useState('')
+
+  const handleSearch = () => {
+    search(term);
+  }
   return (
     <div>Search Glossary Here:
-      <input placeholder='Search Here'/>
-      <button>Search</button>
+      <input placeholder='Search Here' onChange={(e) => setTerm(e.target.value)}/>
+      <button onClick={handleSearch}>Search</button>
     </div>
   )
 }
