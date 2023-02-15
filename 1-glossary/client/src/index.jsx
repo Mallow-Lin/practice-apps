@@ -7,6 +7,20 @@ import Add from './components/Add.js'
 
 
 const App = () => {
+  const fetchPage = () => {
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:3000/fetch',
+      success: (data) => {
+        console.log('got you', data)
+      }
+    })
+  }
+
+  useEffect(() => {
+    fetchPage();
+  }, [])
+
   return (
     <div>
       <div>

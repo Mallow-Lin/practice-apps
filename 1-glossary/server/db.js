@@ -7,12 +7,49 @@ let glossarySchema = mongoose.Schema({
   word: String,
   definition: String
 })
+
 let Glossary = mongoose.model('Glossary', glossarySchema);
 
-let Save = () => {
+let Save = (glossary) => {
+  return new Promise((resolve, reject) => {
+    Glossary.findOne({word: glossary.word})
+      .then((result) => {
+        if (!result) {
+          const newWord = new Glossary ({
+            word: glossary.word,
+            definition: glossary.definition
+          })
+          resolve(newWord.save());
+        } else {
 
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      })
+  })
 }
+
 // 3. Export the models
 module.exports.Glossary = Glossary;
 module.exports.Save = Save;
 // 4. Import the models into any modules that need them
+
+////
+
+const seeding = [{
+  word: 'laptop',
+  definition: 'a small computer you can use on your lap'
+},
+{
+  word: 'desktop',
+  definition: 'a large computer you can use on a desk'
+},
+{
+  word: 'keyboard',
+  definition: 'the buttons on a computer with letters and numbers'
+}]
+
+seeding.forEach((seed) => {
+  Save(seed);
+})
