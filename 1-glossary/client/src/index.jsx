@@ -11,7 +11,6 @@ const App = () => {
 
   const [glossaries, setGlossaries] = useState([]);
   const [searched, setSearched] = useState({});
-  console.log('searched', searched)
 
   useEffect(() => {
     let isMounted = true;
@@ -25,16 +24,30 @@ const App = () => {
 
   const search = (term) => {
     setSearched('');
-    $.ajax({
-      type: 'GET',
+    axios({
+      method: 'GET',
       url: '/Search',
-      data: {term},
-      success: (data) => {
-        setSearched(data);
-      },
-      error: (err) => {
-        return alert("**Sorry, we cannot find this word, please try again**");
-      }
+      params: {term}
+    })
+    .then((response) => {
+      setSearched(response.data);
+    })
+    .catch((err) => {
+      return alert("Sorry, we cannot find this word, please try again");
+    })
+  }
+
+  const add = (word, definition) => {
+    axios({
+      method: 'POST',
+      url: '/Add',
+      params: {word, definition}
+    })
+    .then((response) => {
+      setGlossaries(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
     })
   }
 
@@ -44,7 +57,7 @@ const App = () => {
         <h1>My Glossary</h1>
       </div>
       <div>
-        <Add />
+        <Add add={add}/>
         <Search search={search}/>
         <div className='searched'> {searched.word} : {searched.definition}</div>
         <div></div>

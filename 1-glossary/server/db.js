@@ -16,12 +16,12 @@ let Save = (glossary) => {
       .then((result) => {
         if (!result) {
           const newWord = new Glossary ({
-            word: glossary.word.toLowerCase(),
-            definition: glossary.definition.toLowerCase()
+            word: glossary.word,
+            definition: glossary.definition
           })
           resolve(newWord.save());
         } else {
-
+          console.log('word add alreadu')
         }
       })
       .catch((err) => {

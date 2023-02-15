@@ -7,7 +7,7 @@ let app = express();
 app.use(express.static(Path.join(__dirname, '/../client/dist')));
 
 app.get('/fetch', (req, res) => {
-  mongooseDB.Glossary.find({})
+  mongooseDB.Glossary.find({}).sort({_id: -1})
     .then((data) => {
       res.send(data);
     })
@@ -31,6 +31,19 @@ app.get('/Search', (req, res) => {
     })
 })
 
+app.post('/Add', (req, res) => {
+  const glossary = {
+    word: req.query.word.toLocaleLowerCase(),
+    definition: req.query.definition.toLowerCase()
+  }
+  mongooseDB.Save(glossary)
+    .then(() => {
+      mongooseDB.Glossary.find({}).sort({_id: -1})
+        .then((data) => {
+          res.send(data)
+        })
+    })
+})
 
 let port = 3000;
 app.listen(port, function() {
