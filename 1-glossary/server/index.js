@@ -45,6 +45,22 @@ app.post('/Add', (req, res) => {
     })
 })
 
+app.post('/edit', (req, res) => {
+  console.log(req)
+  const glossary = {
+    word: req.query.word.toLowerCase(),
+    definition: req.query.definition.toLowerCase()
+  }
+  mongooseDB.Glossary.update({word: glossary.word}, {$set: {definition: glossary.definition}})
+    .then(() => {
+      mongooseDB.Glossary.find({}).sort({_id: -1})
+        .then((data) => {
+          res.send(data)
+        })
+    })
+})
+
+
 let port = 3000;
 app.listen(port, function() {
   console.log(`listening on port ${port}`);

@@ -51,6 +51,26 @@ const App = () => {
     })
   }
 
+  const edit = (glossary) => {
+    axios({
+      method: 'POST',
+      url: 'edit',
+      params: {glossary}
+    })
+    .then((response) => {
+      setGlossaries(response.data)
+    })
+  }
+
+  const Delete = (glossary) => {
+    console.log('delete')
+    axios({
+      methpd: 'POST',
+      url: '/delete',
+      params: {glossary}
+    })
+  }
+
   return (
     <div>
       <div>
@@ -65,7 +85,7 @@ const App = () => {
       <div>
         <h3>Here are {glossaries.length} glossaries</h3>
         {glossaries.map((glossary) => (
-          <List glossary={glossary}/>
+          <List glossary={glossary} edit={edit} Delete={Delete}/>
         ))}
       </div>
     </div>
