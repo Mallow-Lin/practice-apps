@@ -10,7 +10,7 @@ const Search = ({ search }) => {
   return (
     <div>Search Glossary Here:
       <input placeholder='Search Here' onChange={(e) => setTerm(e.target.value)}/>
-      <button onClick={handleSearch}>Search</button>
+      <button className='button' onClick={handleSearch}>Search</button>
     </div>
   )
 }

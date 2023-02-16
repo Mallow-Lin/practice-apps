@@ -10,7 +10,7 @@ const List = ({ glossary, edit, Delete }) => {
 
   const handleUpdate = () => {
     showPopup(false);
-    glossary.definition = definition;
+    glossary.definition = definition || glossary.definition;
     edit(glossary);
   }
 
@@ -22,20 +22,22 @@ const List = ({ glossary, edit, Delete }) => {
   return (
     <div>
       <main>
-        <div>{glossary.word} : {glossary.definition}
-          <button onClick={() => showPopup(true)}>Edit</button>
-          <button onClick={() => showPopup2(true)}>Delete</button>
+        <div style={{display: 'flex'}}>
+          <button className='button' onClick={() => showPopup(true)}>Edit</button>
+          <button className='button deleteButton' onClick={() => showPopup2(true)}>Delete</button>
+          <h4>{glossary.word} : </h4><div>{glossary.definition}</div>
         </div>
       </main>
 
       <Popup1 showPopup={showPopup} popup={popup}>
-        <div>Word: {glossary.word}</div>
-        <div>Definition: <input defaultValue={glossary.definition} onChange={(e) => editDefinition(e.target.value)}/></div>
-        <button onClick={handleUpdate}>Save</button>
+        <div>
+          <div>{glossary.word} : <input defaultValue={glossary.definition} onChange={(e) => editDefinition(e.target.value)} style={{width:"50%", textAlign:'center'}}/></div>
+          <button onClick={handleUpdate} style={{margin: 20}}>Save</button>
+        </div>
       </Popup1>
 
       <Popup2 popup={popup2}>
-        <div>Want to delete?</div>
+        <div style={{marginBottom:20, color:'red'}}>Want to delete?</div>
         <button onClick={() => showPopup2(false)}>Cancel</button> <button onClick={handleDelete}>Delete</button>
       </Popup2>
     </div>

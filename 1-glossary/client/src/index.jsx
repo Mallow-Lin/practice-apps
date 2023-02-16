@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import $ from 'jquery';
 import Search from './components/Search.js';
 import List from './components/List.js'
 import Add from './components/Add.js'
@@ -91,11 +90,12 @@ const App = () => {
       <div>
         <h1>My Glossary</h1>
       </div>
-      <div>
+      <div style={{marginTop:20}}>
         <Add add={add}/>
+      </div>
+      <div style={{backgroundColor:'lightgray', marginTop:20, marginBottom: 20, height: 60}}>
         <Search search={search}/>
-        <div className='searched'> {searched.word} : {searched.definition}</div>
-        <div></div>
+        <h4> {searched.word} : {searched.definition}</h4>
       </div>
       <div>
         <h3>Here are {glossaries.length} glossaries</h3>

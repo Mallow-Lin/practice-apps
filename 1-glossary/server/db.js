@@ -21,7 +21,8 @@ let Save = (glossary) => {
           })
           resolve(newWord.save());
         } else {
-          console.log('word add alreadu')
+          console.log('word add already')
+          resolve(Glossary.updateOne({word: glossary.word}, {$set: {definition: glossary.definition}}));
         }
       })
       .catch((err) => {
