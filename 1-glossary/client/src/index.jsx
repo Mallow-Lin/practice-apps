@@ -5,7 +5,6 @@ import Search from './components/Search.js';
 import List from './components/List.js'
 import Add from './components/Add.js'
 
-
 const App = () => {
 
   const [glossaries, setGlossaries] = useState([]);
