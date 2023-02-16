@@ -55,19 +55,34 @@ const App = () => {
     axios({
       method: 'POST',
       url: 'edit',
-      params: {glossary}
+      params: {
+        word: glossary.word,
+        definition: glossary.definition
+      }
     })
     .then((response) => {
       setGlossaries(response.data)
     })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   const Delete = (glossary) => {
-    console.log('delete')
+    console.log('here', glossary)
     axios({
-      methpd: 'POST',
+      method: 'POST',
       url: '/delete',
-      params: {glossary}
+      params: {
+        word: glossary.word,
+        definition: glossary.definition
+      }
+    })
+    .then((response) => {
+      setGlossaries(response.data)
+    })
+    .catch((err) => {
+      console.log(err);
     })
   }
 

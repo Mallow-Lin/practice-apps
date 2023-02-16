@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require('express');
+const { mongo } = require("mongoose");
 const Path = require('path');
 const mongooseDB = require('./db.js');
 let app = express();
@@ -34,7 +35,7 @@ app.get('/Search', (req, res) => {
 app.post('/Add', (req, res) => {
   const glossary = {
     word: req.query.word.toLocaleLowerCase(),
-    definition: req.query.definition.toLowerCase()
+    definition: req.query.definition
   }
   mongooseDB.Save(glossary)
     .then(() => {
@@ -46,15 +47,23 @@ app.post('/Add', (req, res) => {
 })
 
 app.post('/edit', (req, res) => {
-  console.log(req)
-  const glossary = {
-    word: req.query.word.toLowerCase(),
-    definition: req.query.definition.toLowerCase()
-  }
+  const glossary = req.query;
   mongooseDB.Glossary.update({word: glossary.word}, {$set: {definition: glossary.definition}})
     .then(() => {
       mongooseDB.Glossary.find({}).sort({_id: -1})
         .then((data) => {
+          res.send(data)
+        })
+    })
+})
+
+app.post('/delete', (req, res) => {
+  const glossary = req.query;
+  mongooseDB.Glossary.deleteOne({word: glossary.word})
+    .then(() => {
+      mongooseDB.Glossary.find({}).sort({_id: -1})
+        .then((data) => {
+          console.log(data);
           res.send(data)
         })
     })
