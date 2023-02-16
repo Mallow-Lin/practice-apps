@@ -35,11 +35,11 @@ const App = () => {
     })
   }
 
-  const add = (word, definition) => {
+  const add = (glossary) => {
     axios({
       method: 'POST',
       url: '/Add',
-      params: {word, definition}
+      params: glossary
     })
     .then((response) => {
       setGlossaries(response.data);
@@ -53,10 +53,7 @@ const App = () => {
     axios({
       method: 'POST',
       url: 'edit',
-      params: {
-        word: glossary.word,
-        definition: glossary.definition
-      }
+      params: glossary
     })
     .then((response) => {
       setGlossaries(response.data)
@@ -67,14 +64,10 @@ const App = () => {
   }
 
   const Delete = (glossary) => {
-    console.log('here', glossary)
     axios({
       method: 'POST',
       url: '/delete',
-      params: {
-        word: glossary.word,
-        definition: glossary.definition
-      }
+      params: glossary
     })
     .then((response) => {
       setGlossaries(response.data)

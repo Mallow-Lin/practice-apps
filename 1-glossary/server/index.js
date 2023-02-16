@@ -33,10 +33,7 @@ app.get('/Search', (req, res) => {
 })
 
 app.post('/Add', (req, res) => {
-  const glossary = {
-    word: req.query.word.toLocaleLowerCase(),
-    definition: req.query.definition
-  }
+  const glossary = req.query;
   mongooseDB.Save(glossary)
     .then(() => {
       mongooseDB.Glossary.find({}).sort({_id: -1})
@@ -48,7 +45,7 @@ app.post('/Add', (req, res) => {
 
 app.post('/edit', (req, res) => {
   const glossary = req.query;
-  mongooseDB.Glossary.update({word: glossary.word}, {$set: {definition: glossary.definition}})
+  mongooseDB.Glossary.updateOne({word: glossary.word}, {$set: {definition: glossary.definition}})
     .then(() => {
       mongooseDB.Glossary.find({}).sort({_id: -1})
         .then((data) => {
@@ -63,7 +60,6 @@ app.post('/delete', (req, res) => {
     .then(() => {
       mongooseDB.Glossary.find({}).sort({_id: -1})
         .then((data) => {
-          console.log(data);
           res.send(data)
         })
     })

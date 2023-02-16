@@ -8,7 +8,7 @@ const Add = ({ add }) => {
   const handleAdd = () => {
     document.querySelector('.errorMessage').innerHTML='';
     if (word && definition) {
-      add(word, definition);
+      add({word, definition});
     } else {
       document.querySelector('.errorMessage').innerHTML='**Please enter a valid word and definition**'
     }
