@@ -6,10 +6,13 @@ const Search = ({ search }) => {
 
   const handleSearch = () => {
     search(term);
+    setTerm('');
   }
   return (
-    <div>Search Glossary Here:
-      <input placeholder='Search Here' onChange={(e) => setTerm(e.target.value)}/>
+    <div>
+      <label htmlFor='search'><h4>Search Glossary Here:</h4></label>
+      <input type='text' id='search' name='search' value={term} placeholder='Search Here'
+             onChange={(e) => {e.preventDefault(); setTerm(e.target.value);}}/>
       <button className='button' onClick={handleSearch}>Search</button>
     </div>
   )

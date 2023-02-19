@@ -85,7 +85,7 @@ const App = () => {
       <div style={{marginTop:20}}>
         <Add add={add}/>
       </div>
-      <div style={{backgroundColor:'lightgray', marginTop:20, marginBottom: 20, height: 60}}>
+      <div style={{backgroundColor:'lightgray', marginTop:20, marginBottom: 20, height: 80}}>
         <Search search={search}/>
         <h4> {searched.word} : {searched.definition}</h4>
       </div>
