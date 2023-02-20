@@ -21,4 +21,23 @@ db.connectAsync()
   )
   .catch((err) => console.log(err));
 
-module.exports = db;
+const save = (sessionId, user) => {
+  return new Promise ((resolve, reject) => {
+    const string = `SELECT * FROM login WHERE loginEmail = '${user.email}'`;
+    connection.query(string, (err, result) => {
+      if (result.length) {
+        console.log('email found in database');
+        return reject();
+      } else {
+        console.log('email NOT found in database');
+        const queryString = 'INSERT INTO login (firstName, lastName, loginEmail, loginPassword, sessionId) VALUES (?, ?, ?, ?, ?)';
+        const queryArgs = [user.firstname, user.lastname, user.email, user.password, sessionId];
+        connection.query(queryString, queryArgs, (err, result) => {
+          return resolve(result)
+        })
+      }
+    })
+  })
+}
+module.exports.db = db;
+module.exports.save = save;

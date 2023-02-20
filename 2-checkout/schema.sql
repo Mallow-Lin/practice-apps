@@ -4,34 +4,35 @@ CREATE DATABASE IF NOT EXISTS checkout;
 
 use checkout;
 
-CREATE TABLE users (
-  id INT NOT NULL AUTO_INCREMENT,
-  firstName VARCHAR(35) NOT NULL,
-  lastname VARCHAR(35) NOT NULL,
-  shippingLine1 VARCHAR(100) NOT NULL,
-  shippingLine2 VARCHAR(50),
-  shippingState CHAR(2) NOT NULL,
-  shippingZipCode INT(5) NOT NULL,
-  phoneNumber BigInt(11) NOT NULL,
-  PRIMARY KEY (id)
-)
-
 CREATE TABLE login (
   id INT NOT NULL AUTO_INCREMENT,
-  loginName VARCHAR(50) NOT NULL,
-  loginPassword VARCHAR(50) NOT NULL,
-  sessionId VARCHAR(100) NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (users_id)
-)
+  firstName VARCHAR(50),
+  lastName VARCHAR(50),
+  loginEmail VARCHAR(50),
+  loginPassword VARCHAR(50),
+  sessionId VARCHAR(100),
+  PRIMARY KEY (id)
+);
 
-CREATE TABLE payment {
+CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
-  creditCard INT(20) NOT NULL,
-  expiryMonth CHAR(3) NOT NULL,
-  expiryYear INT(4) NOT NULL,
-  CVV INT(5) NOT NULL,
-  billingZipCode INT(5) NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (users_id)
-}
+  firstName VARCHAR(50),
+  lastName VARCHAR(50),
+  shippingLine1 VARCHAR(100),
+  shippingLine2 VARCHAR(50),
+  shippingState CHAR(2),
+  shippingZipCode INT(5),
+  phoneNumber BigInt(11),
+  PRIMARY KEY (id)
+);
+
+
+CREATE TABLE payment (
+  id INT NOT NULL AUTO_INCREMENT,
+  creditCard INT(20),
+  expiryMonth CHAR(3),
+  expiryYear INT(4),
+  CVV INT(5),
+  billingZipCode INT(5),
+  PRIMARY KEY (id)
+);

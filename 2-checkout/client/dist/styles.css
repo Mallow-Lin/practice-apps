@@ -62,3 +62,7 @@ main {
 .pageHeader {
   display: flex;
 }
+
+.error {
+  color: red;
+}

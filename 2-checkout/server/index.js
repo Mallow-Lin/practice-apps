@@ -19,13 +19,26 @@ app.use(logger);
 // Serves up all static and generated assets in ../client/dist.
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-/**** 
- * 
- * 
+/****
+ *
+ *
  * Other routes here....
  *
- * 
+ *
  */
+app.post('/register', (req, res) => {
+  const user = req.query;
+  const sessionId = req['session_id'];
+  db.save(sessionId, user)
+    .then(() => {
+      console.log('saved (server)')
+      res.sendStatus(201);
+    })
+    .catch(() => {
+      console.log('email saved in database already (server)')
+      res.sendStatus(404);
+    })
+})
 
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);
