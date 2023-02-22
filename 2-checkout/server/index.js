@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 app.post('/register', (req, res) => {
   const user = req.query;
   const sessionId = req['session_id'];
-  db.save(sessionId, user)
+  db.register(sessionId, user)
     .then(() => {
       console.log('saved (server)')
       res.sendStatus(201);
@@ -37,6 +37,15 @@ app.post('/register', (req, res) => {
     .catch(() => {
       console.log('email saved in database already (server)')
       res.sendStatus(404);
+    })
+})
+
+app.post('/shipping', (req, res) => {
+  const info = req.query;
+  db.user(info)
+    .then(() => {
+      console.log('shipping info saved');
+      res.sendStatus(201);
     })
 })
 

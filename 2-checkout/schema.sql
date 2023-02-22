@@ -16,13 +16,14 @@ CREATE TABLE login (
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
-  firstName VARCHAR(50),
-  lastName VARCHAR(50),
+  fullName VARCHAR(100),
   shippingLine1 VARCHAR(100),
   shippingLine2 VARCHAR(50),
-  shippingState CHAR(2),
-  shippingZipCode INT(5),
-  phoneNumber BigInt(11),
+  city VARCHAR(50),
+  shippingState VARCHAR(2),
+  shippingZipCode VARCHAR(5),
+  email VARCHAR(100),
+  phoneNumber VARCHAR(11),
   PRIMARY KEY (id)
 );
 

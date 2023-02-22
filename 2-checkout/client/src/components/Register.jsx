@@ -24,20 +24,20 @@ const Register = ({ register }) => {
       <div className="pageHeader"><h1>Mallow Shop</h1> <h3>Register</h3></div>
       <div>
       <div>
-        <h4>Full name</h4>
+        <div className='label'><h4>Full name</h4><h4 className='star'>*</h4></div>
         <input type='text' className='name' value={firstname} placeholder='firstname'
                onChange={(e) => setFirstname(e.target.value)} required />
         <input type='text' className='name' value={lastname} placeholder='lastname'
                onChange={(e) => setLastanme(e.target.value)} required />
       </div>
       <div>
-        <h4>Email</h4>
+        <div className='label'><h4>Email</h4><h4 className='star'>*</h4></div>
         <input type='email' className='email' value={email} placeholder='youremail@email.com'
                onChange={(e) => {setError(''); setEmail(e.target.value)}}/>
         <div className='error'>{error}</div>
       </div>
       <div>
-        <h4>Password</h4>
+        <div className='label'><h4>Password</h4><h4 className='star'>*</h4></div>
         <input type='password' className='password' value={password} minLength={4} placeholder='********'
                onChange={(e) => setPassword(e.target.value)} required />
       </div>

@@ -21,7 +21,7 @@ db.connectAsync()
   )
   .catch((err) => console.log(err));
 
-const save = (sessionId, user) => {
+const register = (sessionId, user) => {
   return new Promise ((resolve, reject) => {
     const string = `SELECT * FROM login WHERE loginEmail = '${user.email}'`;
     connection.query(string, (err, result) => {
@@ -39,5 +39,18 @@ const save = (sessionId, user) => {
     })
   })
 }
+
+const user = (info) => {
+  return new Promise ((resolve) => {
+    const queryString = 'INSERT INTO users (fullName, shippingLine1, shippingLine2, city, shippingState, shippingZipCode, email, phoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    const queryArgs = [info.fullname, info.shippingLine1, info.shippingLine2, info.city, info.state, info.ZIPCode, info.email, info.phone];
+    connection.query(queryString, queryArgs, (err, result) => {
+      return resolve(result)
+    })
+  })
+}
+
 module.exports.db = db;
-module.exports.save = save;
+module.exports.register = register;
+module.exports.user = user;
+
