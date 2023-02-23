@@ -40,17 +40,27 @@ const register = (sessionId, user) => {
   })
 }
 
-const user = (info) => {
+const user = (sessionId, info) => {
   return new Promise ((resolve) => {
-    const queryString = 'INSERT INTO users (fullName, shippingLine1, shippingLine2, city, shippingState, shippingZipCode, email, phoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-    const queryArgs = [info.fullname, info.shippingLine1, info.shippingLine2, info.city, info.state, info.ZIPCode, info.email, info.phone];
+    const queryString = 'INSERT INTO users (fullName, shippingLine1, shippingLine2, city, shippingState, shippingZipCode, email, phoneNumber, sessionId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const queryArgs = [info.fullname, info.shippingLine1, info.shippingLine2, info.city, info.state, info.ZIPCode, info.email, info.phone, sessionId];
     connection.query(queryString, queryArgs, (err, result) => {
       return resolve(result)
     })
   })
 }
 
+const payment = (sessionId, info) => {
+  return new Promise ((resolve) => {
+    const queryString = 'INSERT INTO payment (cardName, creditCard, expiryMonth, expiryYear, CVV, billingZipCode, sessionId) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const queryArgs = [info.cardName, info.cardNumber, info.expMonth, info.expYear, info.CVV, info.ZIPCODE, sessionId];
+    connection.query(queryString, queryArgs, (err, result) => {
+      return resolve(result)
+    })
+  })
+}
 module.exports.db = db;
 module.exports.register = register;
 module.exports.user = user;
+module.exports.payment = payment;
 

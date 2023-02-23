@@ -26,7 +26,6 @@ const App = () => {
   }
 
   const shipping = (info) => {
-    console.log(info);
     axios({
       method: 'POST',
       url: '/shipping',
@@ -40,10 +39,24 @@ const App = () => {
     })
   }
 
+  const payment = (info) => {
+    axios({
+      method: 'POST',
+      url: '/payment',
+      params: info
+    })
+    .then(() => {
+      setPath('/purchase')
+    })
+    .catch(() => {
+      console.log('err0r');
+    })
+  }
+
   return  (
     path === '/register' ? <Register register={register}/>
     : path === '/shipping' ? <Shipping  shipping={shipping} firstname={firstname}/>
-    : path === '/payment' ? <Payment  />
+    : path === '/payment' ? <Payment payment={payment} firstname={firstname} />
     : path === '/purchase' ? <Purchase />
     : (
     <div>

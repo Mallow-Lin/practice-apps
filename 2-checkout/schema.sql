@@ -24,16 +24,19 @@ CREATE TABLE users (
   shippingZipCode VARCHAR(5),
   email VARCHAR(100),
   phoneNumber VARCHAR(11),
+  sessionId VARCHAR(100),
   PRIMARY KEY (id)
 );
 
 
 CREATE TABLE payment (
   id INT NOT NULL AUTO_INCREMENT,
+  cardName VARCHAR(100),
   creditCard INT(20),
-  expiryMonth CHAR(3),
+  expiryMonth INT(2),
   expiryYear INT(4),
   CVV INT(5),
   billingZipCode INT(5),
+  sessionId VARCHAR(100),
   PRIMARY KEY (id)
 );
