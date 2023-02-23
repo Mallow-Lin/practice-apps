@@ -53,9 +53,22 @@ const user = (sessionId, info) => {
 const payment = (sessionId, info) => {
   return new Promise ((resolve) => {
     const queryString = 'INSERT INTO payment (cardName, creditCard, expiryMonth, expiryYear, CVV, billingZipCode, sessionId) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    const queryArgs = [info.cardName, info.cardNumber, info.expMonth, info.expYear, info.CVV, info.ZIPCODE, sessionId];
+    const queryArgs = [info.cardName, info.cardNumber, info.expMonth, info.expYear, info.cvv, info.ZIPCode, sessionId];
     connection.query(queryString, queryArgs, (err, result) => {
       return resolve(result)
+    })
+  })
+}
+
+const purchase = (sessionId) => {
+  return new Promise ((resolve) => {
+    const queryString = `SELECT * FROM payment INNER JOIN users ON payment.sessionId=users.sessionId AND users.sessionId='${sessionId}'`;
+    connection.query(queryString, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        return resolve(result);
+      }
     })
   })
 }
@@ -63,4 +76,5 @@ module.exports.db = db;
 module.exports.register = register;
 module.exports.user = user;
 module.exports.payment = payment;
+module.exports.purchase = purchase;
 

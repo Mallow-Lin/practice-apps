@@ -30,13 +30,13 @@ CREATE TABLE users (
 
 
 CREATE TABLE payment (
-  id INT NOT NULL AUTO_INCREMENT,
+  paymentId INT NOT NULL AUTO_INCREMENT,
   cardName VARCHAR(100),
-  creditCard INT(20),
-  expiryMonth INT(2),
-  expiryYear INT(4),
-  CVV INT(5),
-  billingZipCode INT(5),
+  creditCard VARCHAR(20),
+  expiryMonth VARCHAR(2),
+  expiryYear VARCHAR(4),
+  CVV VARCHAR(5),
+  billingZipCode VARCHAR(5),
   sessionId VARCHAR(100),
-  PRIMARY KEY (id)
+  PRIMARY KEY (paymentId)
 );

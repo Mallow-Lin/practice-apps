@@ -9,6 +9,7 @@ import axios from 'axios';
 const App = () => {
   const [path, setPath] = useState('');
   const [firstname, setFirstname] = useState('');
+  const [purchaseInfo, setPurchaseInfo] = useState({});
 
   const register = (user) => {
     axios({
@@ -53,11 +54,24 @@ const App = () => {
     })
   }
 
+  const purchase = () => {
+    axios({
+      method: 'GET',
+      url: '/purchase'
+    })
+    .then((result) => {
+      setPurchaseInfo(result.data);
+    })
+    .catch(() => {
+      console.log('failed')
+    })
+  }
+
   return  (
     path === '/register' ? <Register register={register}/>
     : path === '/shipping' ? <Shipping  shipping={shipping} firstname={firstname}/>
     : path === '/payment' ? <Payment payment={payment} firstname={firstname} />
-    : path === '/purchase' ? <Purchase />
+    : path === '/purchase' ? <Purchase firstname={firstname} purchase={purchase} purchaseInfo={purchaseInfo}/>
     : (
     <div>
       <div className="pageHeader"><h1>Mallow Shop</h1> <h3>Home Page</h3></div>

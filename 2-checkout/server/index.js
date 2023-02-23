@@ -41,7 +41,6 @@ app.post('/register', (req, res) => {
 })
 
 app.post('/shipping', (req, res) => {
-
   const info = req.query;
   const sessionId = req['session_id'];
   db.user(sessionId, info)
@@ -52,13 +51,22 @@ app.post('/shipping', (req, res) => {
 })
 
 app.post('/payment', (req, res) => {
-  console.log(req)
   const info = req.query;
   const sessionId = req['session_id'];
   db.payment(sessionId, info)
     .then(() => {
       console.log('payment info saved');
       res.sendStatus(201);
+    })
+})
+
+app.get('/purchase', (req, res) => {
+  const sessionId = req['session_id'];
+  db.purchase(sessionId)
+    .then((result) => {
+      const data = result[0];
+      data.creditCard = data.creditCard.slice(-4);
+      res.send(data);
     })
 })
 
