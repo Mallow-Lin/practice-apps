@@ -32,10 +32,10 @@ const Shipping = ({ shipping, firstname}) => {
   }
 
   return (
-    <div>
+    <div className="page">
       <div className="pageHeader"><h1>Mallow Shop</h1> <h3>Shipping</h3></div>
-      <h4>Dear ${firstname}, Your Shipping Address</h4>
-      <form onSubmit={(e) => {e.preventDefault(); handleShipping()}}>
+      <h4>Dear {firstname}, Your Shipping Address</h4>
+      <form onSubmit={(e) => {e.preventDefault(); handleShipping()}} className='form'>
       <div className='label'>
         <input type='text' className='fullname' value={fullname} placeholder='Full Name' required
                onChange={(e) => setFullname(e.target.value)} /><h4 className='star'>*</h4>
@@ -55,6 +55,8 @@ const Shipping = ({ shipping, firstname}) => {
       <div className='label'>
         <input type='text'  className='state' value={state} placeholder='NY' maxLength={2} required
                onChange={(e) => setState(e.target.value)} /><h4 className='star'>*</h4>
+      </div>
+      <div className='label'>
         <input type='number' className='ZIPCode' value={ZIPCode} placeholder='ZIP Code' max={99999} autoComplete="postal-code" pattern="^([0-9]{5})$"
                onChange={(e) => {setZIPError(''); setZIPCode(e.target.value)}} required/><h4 className='star'>*</h4>
       </div>
@@ -69,7 +71,7 @@ const Shipping = ({ shipping, firstname}) => {
                onChange={(e) => {setPhoneError(''); setPhone(e.target.value)}} required/><h4 className='star'>*</h4>
       </div>
       <h5 className='error'>{phoneError}</h5>
-      <button>Continute</button>
+      <button className='button'>Continute</button>
       </form>
     </div>
   )

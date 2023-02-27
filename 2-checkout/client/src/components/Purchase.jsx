@@ -1,16 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Popup from './Popup.jsx';
 
-const Purchase = ({ firstname, purchase, purchaseInfo }) => {
+const Purchase = ({ firstname, purchase, purchaseInfo, complete }) => {
 
+  const [popup, showPopup] = useState(false);
   useEffect(() => {
     purchase();
   }, []);
 
   return (
-    <div>
+    <div className="page">
       <div className="pageHeader"><h1>Mallow Shop</h1> <h3>Purchase</h3></div>
       <h4>Dear {firstname}, please review your order informations</h4>
-      <div>
+      <div className="form">
         <h3>Order Information</h3>
         <h4>Sent To:</h4>
         <div>
@@ -29,9 +31,10 @@ const Purchase = ({ firstname, purchase, purchaseInfo }) => {
         <ul>Billing Zip Code {purchaseInfo.billingZipCode}</ul>
       </div>
       <h3>items#######</h3>
-      <form>
-        <button >Purchase</button>
+      <form onSubmit={(e) => {e.preventDefault(); showPopup(true)}}>
+        <button className='button' >Purchase</button>
       </form>
+      <Popup popup={popup} firstname={firstname} purchaseInfo={purchaseInfo} complete={complete} ></Popup>
     </div>
   )
 }

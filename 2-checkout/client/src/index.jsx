@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Register from "./components/Register.jsx";
 import Shipping from "./components/Shipping.jsx";
@@ -67,17 +67,21 @@ const App = () => {
     })
   }
 
+  const complete = () => {
+    setPath('')
+  }
   return  (
     path === '/register' ? <Register register={register}/>
     : path === '/shipping' ? <Shipping  shipping={shipping} firstname={firstname}/>
     : path === '/payment' ? <Payment payment={payment} firstname={firstname} />
-    : path === '/purchase' ? <Purchase firstname={firstname} purchase={purchase} purchaseInfo={purchaseInfo}/>
+    : path === '/purchase' ? <Purchase firstname={firstname} purchase={purchase} purchaseInfo={purchaseInfo} complete={complete} />
     : (
-    <div>
+    <div className="page">
       <div className="pageHeader"><h1>Mallow Shop</h1> <h3>Home Page</h3></div>
-      <div>
+      <div className="home">
+        <img src='https://miro.medium.com/v2/resize:fit:1400/format:webp/1*2U7hReW6WUfLkoNfZbfekQ.png' className="checkoutImage" />
         <label htmlFor='checkout'>Proceed to Checkout: </label>
-        <button id='checkout' onClick={() => setPath('/register')}>Checkout</button>
+        <button className='button' onClick={() => setPath('/register')}>Checkout</button>
       </div>
     </div>
     )
